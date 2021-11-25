@@ -22,7 +22,7 @@ def _parse_response(html: str) -> List[Article]:
 
     return articles
 
-def get_top_arcticles(limit: int = 10):
+def get_top_arcticles(limit: int = 5):
     res = requests.get(RESOURCE_URL)
     if res.status_code != 200:
         raise ResourceError(f'Invalid status code: status_code = {res.status_code}')
