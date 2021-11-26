@@ -16,7 +16,7 @@ def _create_config():
     with open(config_file) as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
         bot = config['bot']
-        return BotConfig(token=bot['token'], timeout_seconds=int(bot['timeout-seconds']))
+        return BotConfig(token=bot['token'], timeout_seconds=int(bot['timeout-seconds']), storage=bot['storage'])
 
 def init():
     global bot_config
@@ -24,11 +24,12 @@ def init():
     bot_config = _create_config()
 
 class BotConfig:
-    def __init__(self, token: str, timeout_seconds: int):
+    def __init__(self, token: str, timeout_seconds: int, storage: str):
         self.token = token
         self.timeout_seconds = timeout_seconds
+        self.storage = storage
     
     def __repr__(self) -> str:
-        return f"BotConfig(token={self.token[:3]}***{self.token[len(self.token) - 3:]}, timeout_seconds={self.timeout_seconds})"
+        return f"BotConfig(token={self.token[:3]}***{self.token[len(self.token) - 3:]}, timeout_seconds={self.timeout_seconds}, storage={self.storage})"
     
 bot_config: BotConfig = None
