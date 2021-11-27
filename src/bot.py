@@ -15,7 +15,7 @@ def _create_send_articles_by_timeout(updater: Updater):
         for subscriber in storage.get_subscribers():
             articles = get_top_arcticles()
            
-            logging.info('Send articles: subscriber = {}, articles = {}'.format(subscriber, articles))
+            logging.info('Send articles to subscriber: subscriber = {}'.format(subscriber))
             updater.bot.send_message(
                 chat_id=subscriber.chat_id, 
                 text=create_message(articles),
