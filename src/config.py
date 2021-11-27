@@ -1,5 +1,8 @@
-import logging, coloredlogs, sys, yaml
+import logging, coloredlogs, sys, yaml, os
 
+PARAM_TOKEN = 'token'
+PARAM_TIMEOUT_SECONDS = 'timeout-seconds'
+PARAM_STORAGE = 'storage'
 CONFIG_FILE = 'hacker-bot.yaml'
 
 def _init_logging():
@@ -16,7 +19,18 @@ def _create_config():
     with open(config_file) as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
         bot = config['bot']
-        return BotConfig(token=bot['token'], timeout_seconds=int(bot['timeout-seconds']), storage=bot['storage'])
+        return BotConfig(
+            token=_get_param(bot, PARAM_TOKEN), 
+            timeout_seconds=int(_get_param(bot, PARAM_TIMEOUT_SECONDS)), 
+            storage=_get_param(bot, PARAM_STORAGE)
+        )
+
+def _get_param(bot_config, param):
+    env_param = f"BOT_{param.replace('-', '_').upper()}"
+    value = os.environ.get(env_param)
+    if value is not None:
+        return value
+    return bot_config[param]
 
 def init():
     global bot_config
