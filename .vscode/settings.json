@@ -1,3 +1,15 @@
 {
-    "python.pythonPath": "venv/bin/python"
+    "python.pythonPath": "venv/bin/python",
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "[local] hacker-bot-pg",
+            "database": "hacker-bot",
+            "username": "user",
+            "password": "password"
+        }
+    ]
 }
