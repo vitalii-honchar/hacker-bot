@@ -1,4 +1,5 @@
 import logging, coloredlogs, sys, yaml, os
+from urllib.parse import urlparse
 
 PARAM_BOT = 'bot'
 PARAM_BOT_TOKEN = 'token'
@@ -10,6 +11,8 @@ PARAM_DATABASE_NAME = 'name'
 PARAM_DATABASE_USER = 'user'
 PARAM_DATABASE_PASSWORD = 'password'
 PARAM_DATABASE_PORT = 'port'
+
+ENV_DATABASE_URL = 'DATABASE_URL'
 
 CONFIG_FILE = 'hacker-bot.yaml'
 
@@ -37,6 +40,16 @@ def _create_bot_config(bot_config):
     )
 
 def _create_database_config(db_config):
+    if ENV_DATABASE_URL in os.environ:
+        config = urlparse(os.environ[ENV_DATABASE_URL])
+        return DatabaseConfig(
+            user=config.username,
+            password=config.password,
+            name=config.path[1:],
+            host=config.hostname,
+            port=config.port
+        )
+
     return DatabaseConfig(
         host=_get_param(db_config, PARAM_DATABASE_HOST, PARAM_DATABASE),
         name=_get_param(db_config, PARAM_DATABASE_NAME, PARAM_DATABASE),
