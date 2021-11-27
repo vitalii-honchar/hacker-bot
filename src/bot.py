@@ -34,7 +34,13 @@ def _start_command(update: Update, context: CallbackContext):
     subscriber = Subscriber(update.effective_user.id, update.effective_chat.id, update.effective_user.first_name, update.effective_user.last_name)
     logging.info('Bot started: user = {}'.format(subscriber))
     storage.save_subscriber(subscriber)
-    context.bot.send_message(chat_id=subscriber.chat_id, text="I'm a hacker news bot, I will send you news every day!")
+    context.bot.send_message(chat_id=subscriber.chat_id, text="I'm a tech news bot, I will send you news every day!")
+    articles = get_top_arcticles()
+    context.bot.send_message(
+        chat_id=subscriber.chat_id, 
+        text=create_message(articles),
+        parse_mode=ParseMode.MARKDOWN_V2
+    )
 
 def start():
     updater = Updater(token=config.bot_config.token, use_context=True)
