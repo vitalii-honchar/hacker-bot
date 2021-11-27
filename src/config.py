@@ -59,7 +59,7 @@ def _create_database_config(db_config):
     )
 
 def _get_param(config, param, prefix):
-    env_param = f"{prefix}_{param.replace('-', '_').upper()}"
+    env_param = f"{prefix}_{param.replace('-', '_')}".upper()
     value = os.environ.get(env_param)
     if value is not None:
         return value
