@@ -23,7 +23,6 @@ SQL_UPSERT_SUBSCRIBER = '''
     DO UPDATE SET
         first_name=%(first_name)s,
         last_name=%(last_name)s,
-        chat_id=%(chat_id)s,
         notification_time=%(notification_time)s
 '''
 
