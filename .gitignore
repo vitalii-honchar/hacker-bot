@@ -2,4 +2,4 @@ venv/
 **/__pycache__/**
 *-dev.yaml
 *.db
-.vscode
+.vscode/
