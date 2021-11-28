@@ -1,13 +1,21 @@
+from dataclasses import dataclass, replace
+from datetime import datetime, timedelta
 
+@dataclass(frozen=True)
 class Subscriber:
-    def __init__(self, id, chat_id, first_name, last_name):
-        self.id = id
-        self.chat_id = chat_id
-        self.first_name = first_name
-        self.last_name = last_name
+    NOTIFICATION_TIMEOUT = timedelta(days=3)
 
-    def __str__(self) -> str:
-        return f"Subscriber(id={self.id}, chat_id={self.chat_id}, first_name={self.first_name}, last_name={self.last_name})"
+    id: str
+    chat_id: str
+    first_name: str
+    last_name: str
+    notification_time: datetime = datetime.utcnow() + NOTIFICATION_TIMEOUT
+
+    def is_need_notify(self):
+        return (datetime.utcnow() - self.notification_time) >= Subscriber.NOTIFICATION_TIMEOUT
+
+    def update_notification_time(self):
+        return replace(self, notification_time=self.notification_time + Subscriber.NOTIFICATION_TIMEOUT)
 
 class Article:
     def __init__(self, title: str, link: str, rank: int, score: int):

@@ -12,7 +12,8 @@ logging.info(f'Started bot with config: config = {config.bot_config}')
 
 def _create_send_articles_by_timeout(updater: Updater):
     def send():
-        for subscriber in storage.get_subscribers():
+        subsribers_for_save = []
+        for subscriber in storage.get_subscribers_for_notifications():
             articles = get_top_arcticles()
            
             logging.info('Send articles to subscriber: subscriber = {}'.format(subscriber))
@@ -21,6 +22,8 @@ def _create_send_articles_by_timeout(updater: Updater):
                 text=create_message(articles),
                 parse_mode=ParseMode.MARKDOWN_V2
             )
+            subsribers_for_save.append(subscriber.update_notification_time())
+        storage.save_subscribers(subsribers_for_save)
     
     def send_with_exception_handling():
         try:
