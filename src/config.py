@@ -1,4 +1,4 @@
-import logging, coloredlogs, sys, yaml, os
+import logging, coloredlogs, sys, yaml, os, asyncio
 from urllib.parse import urlparse
 
 PARAM_BOT = 'bot'
@@ -66,9 +66,14 @@ def _get_param(config, param, prefix):
     return config[param]
 
 def init():
-    global bot_config, db_config
+    global bot_config, db_config, event_loop
     _init_logging()
     bot_config, db_config = _create_config()
+    
+    event_loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(event_loop)
+
+    logging.info('config loop = {}'.format(event_loop))
 
 class BotConfig:
     def __init__(self, token: str, timeout_seconds: int):
@@ -91,3 +96,4 @@ class DatabaseConfig:
 
 bot_config: BotConfig = None
 db_config: DatabaseConfig = None
+event_loop = None
