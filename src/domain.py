@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 
 @dataclass(frozen=True)
 class Subscriber:
-    NOTIFICATION_TIMEOUT = timedelta(days=3)
+    NOTIFICATION_TIMEOUT = timedelta(days=1)
 
     id: str
     chat_id: str

@@ -1,10 +1,8 @@
-import logging, storage, config
+import logging, storage, messages
 from domain import Subscriber
-from messages import create_message
 from hackernews import get_top_arcticles
 from aiogram.types import Message
 
-PARSE_MODE_MARKDOWN = 'MarkdownV2'
 
 async def start(message: Message):
     logging.info(message)
@@ -14,8 +12,8 @@ async def start(message: Message):
     await message.answer(text="I'm a tech news bot, I will send you news every day!")
     articles = await get_top_arcticles()
     await message.answer(
-        text=create_message(articles),
-        parse_mode=PARSE_MODE_MARKDOWN
+        text=messages.create_message(articles),
+        parse_mode=messages.PARSE_MODE_MARKDOWN
     )
 
 commands = {

@@ -1,5 +1,4 @@
 import config, psycopg2
-from datetime import datetime
 from contextlib import contextmanager
 from typing import List, Any
 from domain import Subscriber
