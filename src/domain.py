@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 
 @dataclass(frozen=True)
 class Subscriber:
-    NOTIFICATION_TIMEOUT = timedelta(days=3)
+    NOTIFICATION_TIMEOUT = timedelta(days=1)
 
     id: str
     chat_id: str
@@ -17,12 +17,8 @@ class Subscriber:
     def update_notification_time(self):
         return replace(self, notification_time=self.notification_time + Subscriber.NOTIFICATION_TIMEOUT)
 
+@dataclass(frozen=True)
 class Article:
-    def __init__(self, title: str, link: str, rank: int, score: int):
-        self.title = title
-        self.link = link
-        self.rank = rank
-        self.score = score
-
-    def __repr__(self) -> str:
-        return f"Article(title={self.title}, link={self.link}, rank={self.rank}, score={self.score})"
+    title: str
+    link: str
+    score: int

@@ -69,7 +69,7 @@ def init():
     global bot_config, db_config
     _init_logging()
     bot_config, db_config = _create_config()
-
+    
 class BotConfig:
     def __init__(self, token: str, timeout_seconds: int):
         self.token = token
