@@ -26,3 +26,4 @@ async def _start_send_news(period: int, bot: Bot):
 def start_send_news(period: int, bot: Bot):
     loop = asyncio.get_event_loop_policy().get_event_loop()
     loop.create_task(_start_send_news(period, bot))
+ 
