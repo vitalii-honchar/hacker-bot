@@ -1,4 +1,5 @@
-import logging, config, storage, command, news_sender
+import logging, config, command, news_sender
+from storage import storage
 from aiogram import Bot, Dispatcher, executor
 
 config.init()
