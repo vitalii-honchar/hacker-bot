@@ -9,10 +9,7 @@ class Subscriber:
     chat_id: str
     first_name: str
     last_name: str
-    notification_time: datetime = datetime.utcnow() + NOTIFICATION_TIMEOUT
-
-    def is_need_notify(self):
-        return (datetime.utcnow() - self.notification_time) >= Subscriber.NOTIFICATION_TIMEOUT
+    notification_time: datetime = (datetime.utcnow() + NOTIFICATION_TIMEOUT).replace(hour=6, minute=0, second=0, microsecond=0)
 
     def update_notification_time(self):
         return replace(self, notification_time=self.notification_time + Subscriber.NOTIFICATION_TIMEOUT)
