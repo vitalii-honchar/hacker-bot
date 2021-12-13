@@ -3,9 +3,9 @@ from storage.subscriber.subscriber import get_subscribers_for_notifications, sav
 from aiogram import Bot
 
 async def _send_news(bot: Bot):
-    subsribers_for_save = []
     subscribers = await get_subscribers_for_notifications()
     if len(subscribers) > 0:
+        subsribers_for_save = []
         articles = await hackernews.get_top_arcticles()
         for subscriber in subscribers:
             logging.info('Send articles to subscriber: subscriber = {}'.format(subscriber))
