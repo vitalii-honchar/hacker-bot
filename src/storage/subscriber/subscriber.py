@@ -1,6 +1,7 @@
 from domain import Subscriber
 from storage.storage import read_cursor, update_cursor
 from storage.subscriber.mapper import row_to_subscriber, subscriber_to_dict
+from decorators import asyncable
 
 SQL_UPSERT_SUBSCRIBER = '''
     INSERT INTO subscriber 
@@ -16,6 +17,7 @@ SQL_UPSERT_SUBSCRIBER = '''
 
 SQL_READ_SUBSCRIBERS_FOR_NOTIFICATIONS = 'SELECT * FROM subscriber WHERE notification_time <= NOW()'
 
+@asyncable
 def get_subscribers_for_notifications() -> list[Subscriber]:
     with read_cursor() as cursor:
         cursor.execute(SQL_READ_SUBSCRIBERS_FOR_NOTIFICATIONS)
@@ -25,6 +27,7 @@ def get_subscribers_for_notifications() -> list[Subscriber]:
             subscribers.append(row_to_subscriber(row))
         return subscribers
 
+@asyncable
 def save_subscribers(subscribers: list[Subscriber]):
     with update_cursor() as cursor:
         for subscriber in subscribers:
@@ -33,5 +36,5 @@ def save_subscribers(subscribers: list[Subscriber]):
                 subscriber_to_dict(subscriber)
             )
 
-def save_subscriber(subscriber: Subscriber):
-    save_subscribers([subscriber])
+async def save_subscriber(subscriber: Subscriber):
+    await save_subscribers([subscriber])
