@@ -1,7 +1,7 @@
 import asyncio, hackernews, logging, messages
 from storage.subscriber.subscriber import get_subscribers_for_notifications, save_subscribers
 from aiogram import Bot
-e
+
 async def _send_news(bot: Bot):
     subscribers = await get_subscribers_for_notifications()
     if len(subscribers) > 0:
