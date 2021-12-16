@@ -18,7 +18,7 @@ async def _send_news(bot: Bot):
                 )
                 subsribers_for_save.append(subscriber.update_notification_time())
             except Exception as e:
-                logging.error('Error during send article: subscriber = {}, message = {}'.format(subscriber, msg))
+                logging.error('Error during send article: subscriber = {}, message = {}'.format(subscriber, msg), e)
         await save_subscribers(subsribers_for_save)
 
 async def _start_send_news(period: int, bot: Bot):
