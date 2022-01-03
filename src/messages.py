@@ -5,7 +5,7 @@ from datetime import date
 PARSE_MODE_MARKDOWN = 'MarkdownV2'
 
 def _escape_str(s):
-    return s.translate(str.maketrans({'-': '\-', '(': '\(', ')': '\)', '.': '\.', '{': '\{', '}': '\}'}))
+    return s.translate(str.maketrans({'-': '\-', '(': '\(', ')': '\)', '.': '\.', '{': '\{', '}': '\}', '[': '\[', ']': '\]'}))
 
 def _create_link(title, link):
     return f'[{_escape_str(title)}]({_escape_str(link)})'
